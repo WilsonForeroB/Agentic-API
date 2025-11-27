@@ -10,7 +10,9 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from database.sync_db import BaseMeta, engine_meta
 from models import (
     agentes,
-    maestro_prompts
+    maestro_prompts,
+    roles,
+    usuarios
         )
 
 config = context.config

@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import logging
 from fastapi.responses import JSONResponse
 from routes import (
-    mensajes)
+    mensajes, auth)
 from fastapi.exceptions import RequestValidationError
 import uvicorn
 
@@ -24,12 +24,11 @@ logging.getLogger("azure.core.pipeline.policies.http_logging_policy").setLevel(l
 logging.getLogger("filelock").setLevel(logging.WARNING)
 
 agentic_api.include_router(mensajes.router)
+agentic_api.include_router(auth.router)
 
 if __name__ == "__main__":
     uvicorn.run(
         "main:agentic_api",  
         host="0.0.0.0",
         port=7000
- #       ssl_certfile=cert_path,
- #       ssl_keyfile=key_path
     )

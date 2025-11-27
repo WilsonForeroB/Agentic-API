@@ -6,7 +6,14 @@ import variables as var
 DATABASE_URL = f"postgresql+asyncpg://{var.BD_USUARIO}:{var.BD_CONTRASENA}@{var.BD_HOST}:{var.BD_PUERTO}/{var.BD_BASE_DATOS}"
 
 # Engines
-async_engine_meta = create_async_engine(DATABASE_URL, echo=False)
+async_engine_meta = create_async_engine(
+    DATABASE_URL,
+    echo=False, 
+    pool_pre_ping=True,          # Revisa si la conexión esta activa
+    pool_recycle=1800,           # Recicla conexion (30 m)
+    pool_size=30,
+    max_overflow=12
+)
 
 # Session factories
 AsyncSessionLocalMeta = sessionmaker(
