@@ -14,5 +14,3 @@ class UserRepository:
     async def get_by_username(self, user_name: str):
         result = await self.session.execute(select(User).where(User.user_name == user_name))
         return result.scalar_one_or_none()
-
-    

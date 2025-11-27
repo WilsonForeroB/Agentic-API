@@ -1,6 +1,6 @@
 from passlib.context import CryptContext
 from repositories.user_repositorio import UserRepository
-from utils.token import create_access_token
+from utils.token import create_access_token, decode_token
 from fastapi import HTTPException, status
 from datetime import datetime, timedelta
 import random, string
@@ -37,5 +37,6 @@ class AuthService:
         # metodo de validación de contraseña
 
         token = create_access_token(data={"usr": user_name, "otros": "agregar informacion api"})
+        contenido_token = decode_token(token)
         
-        return {"token": token, "acceso": True}
+        return {"token": token, "decodificacion": contenido_token ,"acceso": True}
