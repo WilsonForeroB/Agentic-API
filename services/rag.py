@@ -1,7 +1,7 @@
 from sentence_transformers import SentenceTransformer, util
 
 # ---------- Configuración ----------
-TXT_FILE = "utils/textos_rag/clima.txt"     # Cambia el archivo si quieres
+TXT_FILE = "utils/textos_rag/noticias.txt"     # Cambia el archivo si quieres
 CHUNK_SIZE = 300                # Nº de caracteres por fragmento
 MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 
@@ -35,6 +35,7 @@ def buscar_semantica(query, embeddings, chunks, threshold=0.5):
 
 # ---------------- MAIN ----------------
 if __name__ == "__main__":
+    ### siempre se hace en el backend ##
     print("Cargando modelo embeddings...")
     model = SentenceTransformer(MODEL_NAME)
 
@@ -54,12 +55,15 @@ if __name__ == "__main__":
     ver = input("\n¿Deseas imprimir chunks y vectores? (s/n): ")
     if ver.lower() == "s":
         mostrar_chunks(chunks, embeddings)
+    ### siempre se hace en el backend ##
 
+    #llamado de tu API ##
     # Pregunta del usuario
     query = input("\n👉 Escribe tu consulta semántica: ")
 
     resultados = buscar_semantica(query, embeddings, chunks, threshold=0.5)
 
+    #RESULTADO DEL A BUSQUEDA EN LA BASE DE DATOS VECTORIAL ##
     print("\n====== RESULTADOS (similitud ≥ 50%) ======")
     if not resultados:
         print("⚠️ No se encontraron coincidencias.")
@@ -67,3 +71,7 @@ if __name__ == "__main__":
         for idx, sim, texto in resultados:
             print(f"\n📌 CHUNK {idx} — Similitud: {sim:.2f}")
             print(texto)
+
+    #PASAR LA RESPUESTA A UN LLM ##
+
+    # ENVIAR LA RESPUESTA AL CLIENTE
