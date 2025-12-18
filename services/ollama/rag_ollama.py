@@ -8,7 +8,7 @@ import math
 
 TXT_FILE = "utils/textos_rag/clima.txt"
 CHUNK_SIZE = 300
-MODEL = "nomic-embed-text"
+MODEL = "nomic-embed-text:latest"
 API_URL = "http://localhost:11434/api/embed"
 
 
